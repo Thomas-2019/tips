@@ -1,8 +1,4 @@
-## GIT
-
----
-
-### 基本 Command 指令
+## 基本 Command 指令
 
 先介紹 command 指令如下：
 
@@ -52,9 +48,9 @@
 
 - ren
 
-## 更改檔名
+更改檔名
 
-### Git 指令操作
+## Git 設定
 
 - git init
 
@@ -71,6 +67,8 @@
 - git config --list
 
 列出目前有效的設定
+
+## GIT 本地檔案庫指令
 
 - git status
 
@@ -123,6 +121,8 @@ Date: Mon Dec 23 17:14:43 2019 +0800
 
 `
 
+## GIT 記錄
+
 - HEAD:工作目錄比對的基準
 - master:預設的分支名稱，類似變數指向 commit
 
@@ -137,7 +137,7 @@ commit 發生了什麼事?
 tree 40cdfe118b87ef7d56095382afa33392cdbd9ec1
 parent 11a102fbd13cda23d0edccdb404fc2af41561396=>(前個 commit 點)
 
-add-git=>(紀錄名稱)
+add-git=>(commit 記錄名稱)
 `
 
 - git cat-file -p HashID=>(HashID 換成上面 tree:40cd)
@@ -187,6 +187,8 @@ s :切割更小區塊
 y :加入這個區塊到暫存區
 n :取消這個區塊到暫存區
 
+## 紀錄復原
+
 - git checkout index.html
 
 復原 HEAD 的 index.html(修改過的檔案還原)但加入暫存區的部分不還原
@@ -203,9 +205,102 @@ n :取消這個區塊到暫存區
 `git log`只會顯示 HEAD 之前的紀錄，`git log --all`才可看到全部
 還原:`git checkout master`就會讓 HEAD 和 master 同步
 
-## git push error
+- git revert commit id
 
----
+復原 commit id 做的事情，重做一個新的 commit id
+(會自動 commit id 喔)
+會進入編輯器要離開輸入`:q`
+
+- git revert commit id -n
+
+復原 commit id 做的事情，不會重做一個新的 commit id
+(不會自動 commit 喔)
+
+- git reset --hard
+
+重設(還原)目前 HEAD(commit)的工作目錄，清除暫存區
+
+- git reset commit id --hard
+
+(重設 HEAD&工作目錄&目前分支)到 commit id，清除暫存區
+
+- git reflog
+
+  解決`git reset commit id --hard`，找回之前 commit 紀錄
+  查看 HEAD 移動後的歷史紀錄
+  `git log --all`只顯示一部分 commit 紀錄
+  `git reflog`顯示全部紀錄
+
+`463ae16 (HEAD -> master) HEAD@{0}: commit: fix-git a1902ec (origin/master) HEAD@{1}: commit: addgit 31fa29f HEAD@{2}: commit: fix-git 27c8c9a HEAD@{3}: commit: add-gitcommit 153fb25 HEAD@{4}: reset: moving to HEAD 153fb25 HEAD@{5}: commit: add-git 11a102f HEAD@{6}: commit (initial): add`
+
+- git reset --mixed
+
+保持工作目錄不變，清除暫存區
+
+- git reset commit id --mixed
+
+保持工作目錄不變，清除不需要的 commit 紀錄(重設目前分支&HEAD)移到選取 commit id 上，清除暫存區
+用途：打散或合併 commit
+
+- git reset commit id --soft
+
+重設(HEAD&目前分支)到 commit id，保留(工作目錄&暫存區)不變
+
+## GIT 分支
+
+- git branch
+
+列出所有分支
+
+- git branch dev
+
+在目前 HEAD 位置建立 dev 分支
+
+- git branch dev -d
+
+刪除 dev 分支(但現有分支不能在 dev 分支上)
+
+- git checkout dev
+
+因為 checkout 會將 HEAD 移到 dev 分支(分支必須存在)
+
+帶異動切換:
+
+> HEAD=>master 時，但修改檔案未 commit 時切換 dev，修改檔案會跟過去
+
+無法切換:
+
+> HEAD=>master 時，但修改檔案未 commit 時切換 dev ，這檔案 dev 也有，切換時會發生錯誤
+
+無法切換之解決方法:
+
+1. reset 捨棄
+
+2. commit 提交
+
+3. stash 收藏
+
+- git stash save temp
+
+將目前未 commit 的檔案收藏起來，取名叫 temp，就能切換
+
+- git stash list
+
+列出所有收藏清單
+
+- git stash pop
+
+取出最後一個收藏
+
+- git checkout [commit id] -b dev
+
+在([commit id] or 目前)位置建立 dev 分支，並且立刻切換過去
+
+- git log --all --graph
+
+顯示有線圖的 log 紀錄
+
+## GIT push 流程
 
 - git init
 - git add README.md
@@ -213,11 +308,7 @@ n :取消這個區塊到暫存區
 - git remote add origin `<url>`
 - git push -u origin master
 
----
-
 - git push -u origin `<branch name>`
-
-gh-pages
 
 參考資料
 
