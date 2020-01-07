@@ -110,9 +110,21 @@ _移除檔案(commit 後退回暫存區)_
 
 - git log
   _查詢 commit 紀錄_
+  `
+  commit 153fb25d4a6f16efd42ab9e7590bfbca66433d2b (HEAD -> master)
+  Date: Tue Jan 7 14:37:18 2020 +0800
 
-* HEAD:工作目錄比對的基準
-* master:預設的分支名稱，類似變數指向 commit
+      add-git=>(紀錄名稱)
+
+commit 11a102fbd13cda23d0edccdb404fc2af41561396 (origin/master)
+Date: Mon Dec 23 17:14:43 2019 +0800
+
+      add=>(紀錄名稱)
+
+`
+
+- HEAD:工作目錄比對的基準
+- master:預設的分支名稱，類似變數指向 commit
 
 _commit 發生了什麼事?_
 `HEAD和目前分支(master)都會移到最新的commit上`
@@ -120,6 +132,53 @@ _commit 發生了什麼事?_
 - git cat-file -p HashID
 
 _查看 hash id 的內容 hash id 最少 4 碼以上_
+`
+\$ git cat-file -p 153f=>153f 至少要 4 碼以上 id(commit 153f...)
+tree 40cdfe118b87ef7d56095382afa33392cdbd9ec1
+parent 11a102fbd13cda23d0edccdb404fc2af41561396=>(前個 commit 點)
+
+add-git=>(紀錄名稱)
+`
+
+- git cat-file -p HashID=>(HashID 換成上面 tree:40cd)
+
+`100644 blob 85e880b7d920929b3bccf6c5dedf5ab6c8d822c3 gitignor.md=>(檔案名稱)`
+
+- git show
+
+_查看最新(最後)commit 修改的 log 包含異動內容_
+
+### 比較:git show vs git log
+
+`git show`
+列出最後一個 commit 包含異動內容
+
+`git log`
+列出所有的 commit 不包含異動內容
+
+- git show CommitID
+
+_查看 commit id 與上一版的差異_
+
+- git show CommitID:abc.txt
+
+_查看 commit id 版的完整檔案內容_
+
+- git diff
+
+_比對暫存區和工作目錄的差異_
+
+- git diff HEAD
+
+_比對 HEAD 和工作目錄的差異(HEAD=>master 上 commit 後)_
+
+- git diff --cached
+
+_比對暫存區(add)和 HEAD(commit)之間的差異_
+
+- git diff CommitID CommitID
+
+_比對兩個 commit id 之間的差異_
 
 ## git push error
 
