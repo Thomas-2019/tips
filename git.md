@@ -180,6 +180,29 @@ add-git=>(紀錄名稱)
 
 比對兩個 commit id 之間的差異
 
+- git add -p
+
+選擇部分內容加入暫存區(需有 commit 過才有效)
+s :切割更小區塊
+y :加入這個區塊到暫存區
+n :取消這個區塊到暫存區
+
+- git checkout index.html
+
+復原 HEAD 的 index.html(修改過的檔案還原)但加入暫存區的部分不還原
+
+- git checkout (commit id/HEAD) 檔名
+
+復原 commit id/HEAD 的(index.html)=>檔名
+(但比對還是 HEAD，預設加到暫存區，有修改還是要再次 add)
+
+- git checkout commit id
+
+工作目錄和 HEAD 更新到這個 commit id，但會和 master 分開不同步
+(不重設暫存區，但異動這個 commit id 改過的檔案無法切換)
+`git log`只會顯示 HEAD 之前的紀錄，`git log --all`才可看到全部
+還原:`git checkout master`就會讓 HEAD 和 master 同步
+
 ## git push error
 
 ---
@@ -203,3 +226,5 @@ gh-pages
 [初用 git 和 github](https://noootown.wordpress.com/2015/06/19/git-first-use/)
 
 [簡單介紹 Git 版本控制-2](https://slides.com/yi-tailin/git#/)
+
+[簡單介紹 Git 版本控制 Part3](https://slides.com/yi-tailin/git-21#/)
