@@ -68,7 +68,7 @@
   取消加入**暫存區**的(index.html ＝>可以不加)目前在**暫存區**的狀態
 
 - git commit -m "add index.html"
-  將**暫存區**的檔案 commit 到本地檔案庫("add index.html"=>紀錄)
+  將**暫存區**的檔案 commit 到本地檔案庫("add index.html"=>記錄)
 
 - git add -u
   只加入修改過被**追蹤**的檔案到暫存區不包含新增的檔案(**追蹤**=>commit 過)
@@ -77,33 +77,38 @@
   被**追蹤**修改過的檔案 commit 到本地檔案庫不包含新增的檔案(**追蹤**=>commit 過且不用在 add .)
 
 - git commit --amend -m "modify"
-  修改最後一次 commit 的紀錄名稱
+  修改最後一次 commit 的記錄名稱
 
 - git rm test.html
   移除檔案(commit 後退回暫存區)
 
 - git log
-  查詢 commit 紀錄
+  查詢 commit 記錄
 
   ```
   commit 153fb25d4a6f16efd42ab9e7590bfbca66433d2b (HEAD -> master)
   Date: Tue Jan 7 14:37:18 2020 +0800
 
-      add-git=>(紀錄名稱)
+      add-git=>(記錄名稱)
   ```
 
 commit 11a102fbd13cda23d0edccdb404fc2af41561396 (origin/master)
 Date: Mon Dec 23 17:14:43 2019 +0800
 
-      add=>(紀錄名稱)```
+      add=>(記錄名稱)```
 
-## GIT 記錄
+### GIT 記錄
+
+**HEAD=>master:目前本地檔案庫所在master位置**
+**HEAD=>dev:目前本地檔案庫所在dev位置**
+**origin/master:遠端檔案庫master位置**
+**origin/HEAD:遠端檔案庫HEAD位置**
 
 - HEAD:工作目錄比對的基準
-- master:預設的分支名稱，類似變數指向 commit
+- master:預設的分支名稱，類似變數指向 commit 分支
 
 **commit 發生了什麼事?**
-HEAD 和目前分支(master)都會移到最新的 commit 上
+HEAD 和目前分支(master)都會移到最新的 commit 分支 上
 
 - git cat-file -p HashID
   查看 hash id 的內容 hash id 最少 4 碼以上
@@ -111,7 +116,7 @@ HEAD 和目前分支(master)都會移到最新的 commit 上
 ```
 \$ git cat-file -p 153f=>153f 至少要 4 碼以上 id(commit 153f...)
 tree 40cdfe118b87ef7d56095382afa33392cdbd9ec1
-parent 11a102fbd13cda23d0edccdb404fc2af41561396=>(前個 commit 點)
+parent 11a102fbd13cda23d0edccdb404fc2af41561396=>(前個 commit 分支點)
 
 add-git=>(commit 記錄名稱)
 ```
@@ -128,16 +133,16 @@ add-git=>(commit 記錄名稱)
 ### 比較:git show vs git log
 
 `git show`
-列出最後一個 commit 包含異動內容
+列出最後一個 commit 分支包含異動內容
 
 `git log`
-列出所有的 commit 不包含異動內容
+列出所有的 commit 分支不包含異動內容
 
 - git show CommitID
-  查看 commit id 與上一版的差異
+  查看 commit 分支 與上一版的差異
 
 - git show CommitID:abc.txt
-  查看 commit id 版的完整檔案內容
+  查看 commit 分支 版的完整檔案內容
 
 - git diff
   比對暫存區和工作目錄的差異
@@ -149,7 +154,7 @@ add-git=>(commit 記錄名稱)
   比對暫存區(add)和 HEAD(commit)之間的差異
 
 - git diff CommitID CommitID
-  比對兩個 commit id 之間的差異
+  比對兩個 commit 分支 之間的差異
 
 - git add -p
   選擇部分內容加入暫存區(需有 commit 過才有效)
@@ -157,41 +162,41 @@ add-git=>(commit 記錄名稱)
   y :加入這個區塊到暫存區
   n :取消這個區塊到暫存區
 
-## 紀錄復原
+### 記錄復原
 
 - git checkout index.html
   復原 HEAD 的 index.html(修改過的檔案還原)但加入暫存區的部分不還原
 
-- git checkout (commit id/HEAD) 檔名
-  復原 commit id/HEAD 的(index.html)=>檔名
+- git checkout (commit 分支/HEAD) 檔名
+  復原 commit 分支/HEAD 的(index.html)=>檔名
   (但比對還是 HEAD，預設加到暫存區，有修改還是要再次 add)
 
-- git checkout commit id
-  工作目錄和 HEAD 更新到這個 commit id，但會和 master 分開不同步
-  (不重設暫存區，但異動這個 commit id 改過的檔案無法切換)
-  `git log`只會顯示 HEAD 之前的紀錄，`git log --all`才可看到全部
+- git checkout commit 分支
+  工作目錄和 HEAD 更新到這個 commit 分支，但會和 master 分開不同步
+  (不重設暫存區，但異動這個 commit 分支 改過的檔案無法切換)
+  `git log`只會顯示 HEAD 之前的記錄，`git log --all`才可看到全部
   還原:`git checkout master`就會讓 HEAD 和 master 同步
 
-- git revert commit id
-  復原 commit id 做的事情，重做一個新的 commit id
-  (會自動 commit id 喔)
+- git revert commit 分支
+  復原 commit 分支 做的事情，重做一個新的 commit 分支
+  (會自動 commit 分支 喔)
   會進入編輯器要離開輸入`:q`
 
-- git revert commit id -n
-  復原 commit id 做的事情，不會重做一個新的 commit id
+- git revert commit 分支 -n
+  復原 commit 分支 做的事情，不會重做一個新的 commit 分支
   (不會自動 commit 喔)
 
 - git reset --hard
   重設(還原)目前 HEAD(commit)的工作目錄，清除暫存區
 
-- git reset commit id --hard
-  (重設 HEAD&工作目錄&目前分支)到 commit id，清除暫存區
+- git reset commit 分支 --hard
+  (重設 HEAD&工作目錄&目前分支)到 commit 分支，清除暫存區
 
 - git reflog
-  解決`git reset commit id --hard`，找回之前 commit 紀錄
-  查看 HEAD 移動後的歷史紀錄
-  `git log --all`只顯示一部分 commit 紀錄
-  `git reflog`顯示全部紀錄
+  解決`git reset commit id --hard`，找回之前 commit 記錄
+  查看 HEAD 移動後的歷史記錄
+  `git log --all`只顯示一部分 commit 記錄
+  `git reflog`顯示全部記錄
 
 ```
 463ae16 (HEAD -> master) HEAD@{0}: commit: fix-git
@@ -206,14 +211,14 @@ a1902ec (origin/master) HEAD@{1}: commit: addgit
 - git reset --mixed
   保持工作目錄不變，清除暫存區
 
-- git reset commit id --mixed
-  保持工作目錄不變，清除不需要的 commit 紀錄(重設目前分支&HEAD)移到選取 commit id 上，清除暫存區
+- git reset commit 分支 --mixed
+  保持工作目錄不變，清除不需要的 commit 記錄(重設目前分支&HEAD)移到選取 commit 分支 上，清除暫存區
   用途：打散或合併 commit
 
-- git reset commit id --soft
-  重設(HEAD&目前分支)到 commit id，保留(工作目錄&暫存區)不變
+- git reset commit 分支 --soft
+  重設(HEAD&目前分支)到 commit 分支，保留(工作目錄&暫存區)不變
 
-## GIT 新增分支
+### GIT 新增分支
 
 - git branch
   列出所有分支
@@ -250,23 +255,148 @@ a1902ec (origin/master) HEAD@{1}: commit: addgit
 - git stash pop
   取出最後一個收藏
 
-- git checkout [commit id] -b dev
-  在([commit id] or 目前)位置建立 dev 分支，並且立刻切換過去
+- git checkout [commit 分支] -b dev
+  在([commit 分支] or 目前)位置建立 dev 分支，並且立刻切換過去
 
 - git log --all --graph
-  顯示有線圖的 log 紀錄
+  顯示有線圖的 log 記錄
 
-## 合併分支
+### 合併分支
 
 - git merge dev
-  在目前的分支上使用快進(不保留 dev commit 節點)合併 dev 分支
+  在目前的分支上使用快進(不保留 dev commit 分支)合併 dev 分支
 
 - git merge --no-ff dev
-  使用不快進(保留 dev commit 節點，master 另開 commit 節點)合併分支
+  使用不快進(保留 dev commit 分支，master 另開 commit 分支)合併分支
   快進：只需移動分支(預設 merge 會使用快進)
   不快進：一定產生 commit(看線圖比較容易分辨是從主線還是分支)
 
-## 衝突處裡
+- git rebase master
+  把目前分支合併到 master，只剩下一條主線 maser
+  如果有衝突一樣先編修好`git add`加入
+  再透過`git rebase --continue`完成
+
+### 衝突處裡
+
+當分支中有改到原分支也正在修改的檔案就會產生衝突
+
+master 分支:
+
+```
+body{
+  background-color:red;
+  font-size:24px;
+}
+```
+
+dev 分支:
+
+```
+body{
+  background-color:blue;
+  font-size:16px;
+}
+```
+
+衝突解法：編輯衝突位置然後重新 git commit
+master 分支:
+
+```
+body{
+  background-color:red;
+  font-size:24px;
+}
+```
+
+刪除不需要的資料然後重新 git commit
+會進入編輯器用`:q`離開
+
+### 提取 dev 部分 commit
+
+- git cherry-pick commit 分支
+  擷取某個 commit 分支 套用在目前分支上
+
+### 標籤(記錄重大里程碑)
+
+- git tag -a "v1.0" -m "message"
+  建立 v1.0 標籤在目前 HEAD 上
+  使用`git cat-file -p v1.0`可查詢記錄訊息
+  或`git log --all`可查詢記錄訊息
+
+- git tag -d "v1.0"
+  刪除標籤
+
+## 遠端操作
+
+### 建立遠端檔案庫(多人編輯檔案時需要)
+
+- git init --bare
+  在目前資料夾建立遠端檔案庫
+
+- git init --bare folder
+  開新資料夾並且建立遠端檔案庫(folder=>開新資料檔名)
+
+### 本地檔案庫連接遠端檔案庫
+
+**1. 有本地端檔案庫要和遠端檔案庫連接(指令下再本地端檔案庫)**
+
+- git remote add origin url
+  新增遠端檔案庫位置(適合已經有本地端檔案庫)遠端檔案庫代號 `origin`
+  (url=>github 網址/遠端資料夾)
+  (可以設很多組遠端)
+
+- git remote show origin
+  顯示遠端檔案庫資訊
+
+### 查看遠端的分支
+
+- git ls-remote url
+  列出遠端檔案庫中所有的分支內容(url=>github 網址/遠端資料夾)
+
+### 抓取記錄
+
+- git fetch
+  把遠端 commit 記錄抓下來(origin/master 遠端分支)到本地端(不會重設工作目錄,也不會改變 HEAD 和分支位置)
+  透過`git remote add origin url`取得遠端檔案庫位址再將記錄抓取下
+
+### 怎麼更新到工作目錄?把遠端當作分支來看!
+
+- git merge origin/master
+  如果本地端沒有任何 commit 則 master 會自動建立
+  如果本地端有 master 分支則依照合併方式處理
+  (origin/master=>遠端 commit 分支)
+
+### 抓取遠端檔案庫內容
+
+- git pull origin master
+  抓取遠端檔案庫的 master 分支內容
+  `pull = fetch + merge` 拉下紀錄並同時自動 merge
+  (這時候就會改變工作目錄,HEAD,分支位置)
+  衝突解法跟分支合併一樣找出誰，也在改這裡，然後跟他協調這裡該如何處理
+
+- git branch -u origin/master master
+  設定遠端 master 跟本地端 master 為預設推送或拉取的位置
+  設定過就不用每次打很長
+
+- git pull
+  上述後抓取遠端內容不用再輸入`git pull origin master`
+
+- git remote remove origin
+  刪除遠端檔案庫設定
+
+**2. 沒有本地端檔案庫要從遠端檔案庫連接資料下來(指令下再本地端檔案庫)**
+
+- git clone url
+  建立相同名稱資料夾並且下載檔案庫全部內容
+  (全新的本地端檔案庫，同時也設定好遠端預設推送或拉取的位置)
+
+- git clone url folder
+  建立 folder 資料夾並且下載檔案庫全部內容
+  (全新的本地端檔案庫，同時也設定好遠端預設推送或拉取的位置)
+
+- git push
+  把本地端的 commit 推送到遠端
+  如果是 dev 時，要輸入`git push -u origin dev`之後才能使用上述指令
 
 ## GIT push 流程
 
@@ -287,3 +417,5 @@ a1902ec (origin/master) HEAD@{1}: commit: addgit
 [簡單介紹 Git 版本控制-2](https://slides.com/yi-tailin/git#/)
 
 [簡單介紹 Git 版本控制 Part3](https://slides.com/yi-tailin/git-21#/)
+
+[簡單介紹 GIT 版本控制-Part4 最終回](https://slides.com/yi-tailin/deck-22#/)
