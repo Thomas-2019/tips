@@ -3,6 +3,7 @@
 先介紹 command 指令如下：
 
 - dir
+
   列出目前資料夾裡面的檔案和資料夾
 
 - cd
@@ -11,8 +12,7 @@
 - cd..
   回到上層
 
-- cd\
-  回到磁碟機最上層
+- cd\回到磁碟機最上層
 
 - md
   建立資料夾
@@ -96,17 +96,21 @@
      add=>(記錄名稱)
   ```
 
-### GIT 記錄
+## GIT 記錄
 
 **HEAD=>master:目前本地檔案庫所在 master 位置**
+
 **HEAD=>dev:目前本地檔案庫所在 dev 位置**
+
 **origin/master:遠端檔案庫 master 位置**
+
 **origin/HEAD:遠端檔案庫 HEAD 位置**
 
 - HEAD:工作目錄比對的基準
 - master:預設的分支名稱，類似變數指向 commit 分支
 
 **commit 發生了什麼事?**
+
 HEAD 和目前分支(master)都會移到最新的 commit 分支 上
 
 - git cat-file -p HashID
@@ -129,7 +133,7 @@ add-git=>(commit 記錄名稱)
 - git show
   查看最新(最後)commit 修改的 log 包含異動內容
 
-### 比較:git show vs git log
+## 比較:git show vs git log
 
 `git show`
 列出最後一個 commit 分支包含異動內容
@@ -161,7 +165,7 @@ add-git=>(commit 記錄名稱)
   y :加入這個區塊到暫存區
   n :取消這個區塊到暫存區
 
-### 記錄復原
+## 記錄復原
 
 - git checkout index.html
   復原 HEAD 的 index.html(修改過的檔案還原)但加入暫存區的部分不還原
@@ -217,7 +221,7 @@ a1902ec (origin/master) HEAD@{1}: commit: addgit
 - git reset commit 分支 --soft
   重設(HEAD&目前分支)到 commit 分支，保留(工作目錄&暫存區)不變
 
-### GIT 新增分支
+## GIT 新增分支
 
 - git branch
   列出所有分支
@@ -260,7 +264,7 @@ a1902ec (origin/master) HEAD@{1}: commit: addgit
 - git log --all --graph
   顯示有線圖的 log 記錄
 
-### 合併分支
+## 合併分支
 
 - git merge dev
   在目前的分支上使用快進(不保留 dev commit 分支)合併 dev 分支
@@ -275,7 +279,7 @@ a1902ec (origin/master) HEAD@{1}: commit: addgit
   如果有衝突一樣先編修好`git add`加入
   再透過`git rebase --continue`完成
 
-### 衝突處裡
+## 衝突處裡
 
 當分支中有改到原分支也正在修改的檔案就會產生衝突
 
@@ -310,12 +314,12 @@ body{
 刪除不需要的資料然後重新 git commit
 會進入編輯器用`:q`離開
 
-### 提取 dev 部分 commit
+## 提取 dev 部分 commit
 
 - git cherry-pick commit 分支
   擷取某個 commit 分支 套用在目前分支上
 
-### 標籤(記錄重大里程碑)
+## 標籤(記錄重大里程碑)
 
 - git tag -a "v1.0" -m "message"
   建立 v1.0 標籤在目前 HEAD 上
@@ -327,7 +331,7 @@ body{
 
 ## 遠端操作
 
-### 建立遠端檔案庫(多人編輯檔案時需要)
+## 建立遠端檔案庫(多人編輯檔案時需要)
 
 - git init --bare
   在目前資料夾建立遠端檔案庫
@@ -335,7 +339,7 @@ body{
 - git init --bare folder
   開新資料夾並且建立遠端檔案庫(folder=>開新資料檔名)
 
-### 本地檔案庫連接遠端檔案庫
+## 本地檔案庫連接遠端檔案庫
 
 **1. 有本地端檔案庫要和遠端檔案庫連接(指令下再本地端檔案庫)**
 
@@ -347,25 +351,25 @@ body{
 - git remote show origin
   顯示遠端檔案庫資訊
 
-### 查看遠端的分支
+## 查看遠端的分支
 
 - git ls-remote url
   列出遠端檔案庫中所有的分支內容(url=>github 網址/遠端資料夾)
 
-### 抓取記錄
+## 抓取記錄
 
 - git fetch
   把遠端 commit 記錄抓下來(origin/master 遠端分支)到本地端(不會重設工作目錄,也不會改變 HEAD 和分支位置)
   透過`git remote add origin url`取得遠端檔案庫位址再將記錄抓取下
 
-### 怎麼更新到工作目錄?把遠端當作分支來看!
+## 怎麼更新到工作目錄?把遠端當作分支來看!
 
 - git merge origin/master
   如果本地端沒有任何 commit 則 master 會自動建立
   如果本地端有 master 分支則依照合併方式處理
   (origin/master=>遠端 commit 分支)
 
-### 抓取遠端檔案庫內容
+## 抓取遠端檔案庫內容
 
 - git pull origin master
   抓取遠端檔案庫的 master 分支內容
@@ -398,20 +402,20 @@ body{
   如果未預設位址，要輸入`git push -u origin master/dev/commit 分支`之後才能使用上述指令
   預設位址`git branch -u master/dev/commit 分支`
 
-### 如果沒設定預設推送位置推送的時候也可以一起設定
+## 如果沒設定預設推送位置推送的時候也可以一起設定
 
 - git push -u origin master
   如果未預設位址，要加上`-u origin master/dev/commit 分支`
   和 `git branch -u origin/master master`意思相同然後同時也會把 commit 推到遠端去
   預設位址`git branch -u master/dev/commit 分支`
 
-### push 時會先要求 pull
+## push 時會先要求 pull
 
 因為 push 上去的 commit 一定要**包含遠端最後一個 commit**(有人再 push 一個 commit 分支)
 所以得先`git pull`合併現在**遠端最後一 commit**接下來才能`git push`
 `pull = fetch + merge` 拉下紀錄並同時自動 merge 解決沒有包含 commit 的問題
 
-### 另外一種壞方法
+## 另外一種壞方法
 
 - git push -f
   強制遠端設為跟本地端一樣的分支位置
@@ -424,7 +428,7 @@ body{
   **稍微安全一點的做法**，你至少要先**fetch**確定知道有些記錄沒更新到才能硬推
   (fetch:抓取記錄)
 
-### 清除不必要的檔案
+## 清除不必要的檔案
 
 - git clean -f
   清理**未版控**的檔案(reset 不會把**沒有版控**的檔案刪除)
