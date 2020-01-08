@@ -300,6 +300,14 @@ n :取消這個區塊到暫存區
 
 顯示有線圖的 log 紀錄
 
+- git merge dev
+
+在目前的分支上合併 dev 分支
+
+- git merge --no-ff dev
+
+不使用快進合併分支
+
 ## GIT push 流程
 
 - git init
