@@ -11,7 +11,7 @@
 - cd..
   回到上層
 
-* cd/\
+- cd\
   回到磁碟機最上層
 
 - md
@@ -21,10 +21,12 @@
   刪除資料夾
 
 - Mac 有 rm -rf /
+  磁碟刪除
+
 - Windows 有 rd \ /s/q
   磁碟刪除
 
-* type nul>file.txt
+- type nul>file.txt
   產生完全空白檔案
 
 - del
@@ -88,14 +90,11 @@
   ```
   commit 153fb25d4a6f16efd42ab9e7590bfbca66433d2b (HEAD -> master)
   Date: Tue Jan 7 14:37:18 2020 +0800
-
-      add-git=>(記錄名稱)
+     add-git=>(記錄名稱)
+  commit 11a102fbd13cda23d0edccdb404fc2af41561396 (origin/master)
+  Date: Mon Dec 23 17:14:43 2019 +0800
+     add=>(記錄名稱)
   ```
-
-commit 11a102fbd13cda23d0edccdb404fc2af41561396 (origin/master)
-Date: Mon Dec 23 17:14:43 2019 +0800
-
-      add=>(記錄名稱)```
 
 ### GIT 記錄
 
