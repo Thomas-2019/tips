@@ -99,10 +99,10 @@ Date: Mon Dec 23 17:14:43 2019 +0800
 
 ### GIT 記錄
 
-**HEAD=>master:目前本地檔案庫所在master位置**
-**HEAD=>dev:目前本地檔案庫所在dev位置**
-**origin/master:遠端檔案庫master位置**
-**origin/HEAD:遠端檔案庫HEAD位置**
+**HEAD=>master:目前本地檔案庫所在 master 位置**
+**HEAD=>dev:目前本地檔案庫所在 dev 位置**
+**origin/master:遠端檔案庫 master 位置**
+**origin/HEAD:遠端檔案庫 HEAD 位置**
 
 - HEAD:工作目錄比對的基準
 - master:預設的分支名稱，類似變數指向 commit 分支
@@ -376,15 +376,15 @@ body{
 
 - git branch -u origin/master master
   設定遠端 master 跟本地端 master 為預設推送或拉取的位置
-  設定過就不用每次打很長
+  **(設定過就不用每次打很長)**
 
 - git pull
-  上述後抓取遠端內容不用再輸入`git pull origin master`
+  上述後抓取遠端內容不用再輸入`git pull origin master`輸入`git push`即可
 
 - git remote remove origin
   刪除遠端檔案庫設定
 
-**2. 沒有本地端檔案庫要從遠端檔案庫連接資料下來(指令下再本地端檔案庫)**
+**2. 沒有本地端檔案庫要從遠端檔案庫連接資料下來**
 
 - git clone url
   建立相同名稱資料夾並且下載檔案庫全部內容
@@ -396,7 +396,42 @@ body{
 
 - git push
   把本地端的 commit 推送到遠端
-  如果是 dev 時，要輸入`git push -u origin dev`之後才能使用上述指令
+  如果未預設位址，要輸入`git push -u origin master/dev/commit 分支`之後才能使用上述指令
+  預設位址`git branch -u master/dev/commit 分支`
+
+### 如果沒設定預設推送位置推送的時候也可以一起設定
+
+- git push -u origin master
+  如果未預設位址，要加上`-u origin master/dev/commit 分支`
+  和 `git branch -u origin/master master`意思相同然後同時也會把 commit 推到遠端去
+  預設位址`git branch -u master/dev/commit 分支`
+
+### push 時會先要求 pull
+
+因為 push 上去的 commit 一定要**包含遠端最後一個 commit**(有人再 push 一個 commit 分支)
+所以得先`git pull`合併現在**遠端最後一 commit**接下來才能`git push`
+`pull = fetch + merge` 拉下紀錄並同時自動 merge 解決沒有包含 commit 的問題
+
+### 另外一種壞方法
+
+- git push -f
+  強制遠端設為跟本地端一樣的分支位置
+  (團隊合作中通常**禁用**,避免不知情的人又合併進去)
+  **新建一個 commit 然後 push 才是正解**
+  push -f 不管 3721 一律蓋掉
+  push 不上去很緊張，只好改用-f 硬推，其實你只是沒有**pull**而已。
+
+- git push --force-with-lease
+  **稍微安全一點的做法**，你至少要先**fetch**確定知道有些記錄沒更新到才能硬推
+  (fetch:抓取記錄)
+
+### 清除不必要的檔案
+
+- git clean -f
+  清理**未版控**的檔案(reset 不會把**沒有版控**的檔案刪除)
+
+- git gc
+  清理不必要.git 資料夾的 Objects 物件
 
 ## GIT push 流程
 
