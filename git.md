@@ -125,17 +125,19 @@
 
 ## GIT 記錄
 
-**HEAD=>master:目前本地檔案庫所在 master 位置**
+**HEAD=>master:目前本地檔案庫工作目錄所在 master 位置**
 
-**HEAD=>dev:目前本地檔案庫所在 dev 位置**
+**HEAD=>dev:目前本地檔案庫工作目錄所在 dev 位置**
 
 **origin/master:遠端檔案庫 master 位置**
 
-**origin/HEAD:遠端檔案庫 HEAD 位置**
+**origin/HEAD:遠端檔案庫工作目錄所在位置**
 
 - HEAD:工作目錄比對的基準
 
 - master:預設的分支名稱，類似變數指向 commit 分支
+
+- origin:遠端檔案庫
 
 **commit 發生了什麼事?**
 
@@ -212,7 +214,7 @@ add-git=>(commit 記錄名稱)
 
 - git checkout (commit 分支/HEAD) 檔名
 
-  復原 commit 分支/HEAD 的(index.html)=>檔名
+  復原 commit 分支/HEAD 的(index.html=>檔名)
 
   (但比對還是 HEAD，預設加到暫存區，有修改還是要再次 add)
 
@@ -247,6 +249,10 @@ add-git=>(commit 記錄名稱)
 - git reset commit 分支 --hard
 
   (重設 HEAD&工作目錄&目前分支)到 commit 分支，清除暫存區
+
+  `git log`與`git log --all`都不會顯示`git reset commit 分支 --hard`
+
+  commit 分支之前記錄須使用`git reflog`找回
 
 - git reflog
 
@@ -378,7 +384,7 @@ body{
 }
 ```
 
-衝突解法：編輯衝突位置然後重新 git commit
+衝突解法：編輯衝突位置然後**重新 git commit**
 
 master 分支:
 
@@ -389,7 +395,7 @@ body{
 }
 ```
 
-刪除不需要的資料然後重新 git commit
+刪除不需要的資料然後**重新 git commit**
 
 會進入編輯器用`:q`離開
 
@@ -483,7 +489,7 @@ body{
 
 - git pull
 
-  上述後抓取遠端內容不用再輸入`git pull origin master`輸入`git push`即可
+  上述後抓取遠端內容不用再輸入`git pull origin master`輸入`git pull`即可
 
 - git remote remove origin
 
@@ -513,13 +519,13 @@ body{
 
 ## 如果沒設定預設推送位置推送的時候也可以一起設定
 
-- git push -u origin master
+- git push
 
-  如果未預設位址，要加上`-u origin master/dev/commit 分支`
+  如果未預設位址，要加上`-u origin master`
 
   和 `git branch -u origin/master master`意思相同然後同時也會把 commit 推到遠端去
 
-  預設位址`git branch -u master/dev/commit 分支`
+  預設位址`git branch -u origin/master master`
 
 ## push 時會先要求 pull
 
